@@ -13,9 +13,11 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.postgresql:postgresql:42.4.1'
 	implementation 'org.jsoup:jsoup:1.15.2'
-	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.2'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {

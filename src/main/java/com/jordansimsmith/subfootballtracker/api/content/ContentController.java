@@ -1,5 +1,6 @@
 package com.jordansimsmith.subfootballtracker.api.content;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,14 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("content")
 public class ContentController {
 
-    private final ContentScraper contentScraper;
+    private final ContentService contentService;
 
-    public ContentController(ContentScraper contentScraper) {
-        this.contentScraper = contentScraper;
+    @Autowired
+    public ContentController(ContentService contentService) {
+        this.contentService = contentService;
     }
 
     @GetMapping("")
     public String index() {
-        return this.contentScraper.scrapeRegistration();
+        this.contentService.checkForUpdates();
+
+        return "checked for updates";
     }
 }
