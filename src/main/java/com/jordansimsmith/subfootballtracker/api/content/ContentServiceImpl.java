@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 
 @Service
@@ -14,12 +15,14 @@ public class ContentServiceImpl implements ContentService {
 
     private final ContentRepository contentRepository;
     private final ContentScraper contentScraper;
+    private final ContentChangeNotifier contentChangeNotifier;
     private final Logger logger = LoggerFactory.getLogger(ContentServiceImpl.class);
 
     @Autowired
-    public ContentServiceImpl(ContentRepository contentRepository, ContentScraper contentScraper) {
+    public ContentServiceImpl(ContentRepository contentRepository, ContentScraper contentScraper, ContentChangeNotifier contentChangeNotifier) {
         this.contentRepository = contentRepository;
         this.contentScraper = contentScraper;
+        this.contentChangeNotifier = contentChangeNotifier;
     }
 
     @Override
@@ -43,9 +46,14 @@ public class ContentServiceImpl implements ContentService {
         logger.info("Saved new content history");
 
         // dispatch notification if changed
-        // TODO:
-        if (historicalContent.isPresent() && !content.equals(historicalContent.get().getContent())) {
+        if (historicalContent.isEmpty() || !content.equals(historicalContent.get().getContent())) {
             logger.info("Content has changed");
+            try {
+                contentChangeNotifier.notify(newContent);
+                logger.info("Content change notification has been dispatched");
+            } catch (IOException e) {
+                logger.error("Failed to dispatch content change email");
+            }
         }
     }
 }

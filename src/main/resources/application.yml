@@ -11,3 +11,12 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yml
+
+email:
+  sender-address: subfootball-tracker@jordansimsmith.com
+  sender-name: SUB Football Tracker
+  content-change-template-id: d-310b3df757dc4b73ad037618c91ea7e2
+  send-grid-api-key: ${SEND_GRID_API_KEY}
+  subscribers:
+    - name: Jordan
+      email: jordansimsmith@gmail.com
