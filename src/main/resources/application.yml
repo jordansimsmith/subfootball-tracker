@@ -12,6 +12,13 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yml
 
+org:
+  jobrunr:
+    background-job-server:
+      enabled: true
+    dashboard:
+      enabled: false
+
 email:
   sender-address: subfootball-tracker@jordansimsmith.com
   sender-name: SUB Football Tracker
