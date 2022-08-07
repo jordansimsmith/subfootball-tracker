@@ -21,6 +21,8 @@ jobs:
           distribution: corretto
           java-version: 18
 
+      - run: gradle wrapper
+
       - name: Run tests
         run: ./gradlew test
 
