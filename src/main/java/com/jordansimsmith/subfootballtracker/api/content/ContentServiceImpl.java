@@ -26,7 +26,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public void checkForUpdates() {
+    public Content checkForUpdates() {
         // get current content
         var content = contentScraper.scrapeRegistration();
         logger.info("Scraped content from external source");
@@ -55,5 +55,7 @@ public class ContentServiceImpl implements ContentService {
                 logger.error("Failed to dispatch content change email");
             }
         }
+
+        return newContent;
     }
 }

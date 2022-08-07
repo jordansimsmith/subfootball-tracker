@@ -17,9 +17,7 @@ public class ContentController {
     }
 
     @GetMapping("")
-    public String index() {
-        this.contentService.checkForUpdates();
-
-        return "checked for updates";
+    public Content index() {
+        return this.contentService.checkForUpdates();
     }
 }

@@ -5,5 +5,5 @@ public interface ContentService {
     /**
      * Checks whether the external has been updated, and dispatches a notification if it has.
      */
-    void checkForUpdates();
+    Content checkForUpdates();
 }
