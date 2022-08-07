@@ -37,6 +37,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: server
+          context: .
           tags: |
             ghcr.io/${{ github.repository_owner }}/subfootball-tracker-server:${{ github.sha }}
