@@ -26,25 +26,25 @@ public class ContentServiceImpl implements ContentService {
     public void checkForUpdates() {
         // get current content
         var content = contentScraper.scrapeRegistration();
+        logger.info("Scraped content from external source");
 
         // check for historical content
         var historicalContent = contentRepository
                 .findAll(PageRequest.of(0, 1, Sort.by(Sort.Order.desc("date"))))
                 .get()
                 .findFirst();
+        logger.info("Loaded latest historical content");
 
         // insert content record
-        if (historicalContent.isEmpty()) {
-            var newContent = new Content();
-            newContent.setContent(content);
-            newContent.setDate(new Date());
-            contentRepository.save(newContent);
-            return;
-        }
+        var newContent = new Content();
+        newContent.setContent(content);
+        newContent.setDate(new Date());
+        contentRepository.save(newContent);
+        logger.info("Saved new content history");
 
         // dispatch notification if changed
         // TODO:
-        if (!content.equals(historicalContent.get().getContent())) {
+        if (historicalContent.isPresent() && !content.equals(historicalContent.get().getContent())) {
             logger.info("Content has changed");
         }
     }
