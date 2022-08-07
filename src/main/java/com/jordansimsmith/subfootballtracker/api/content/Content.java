@@ -1,12 +1,10 @@
 package com.jordansimsmith.subfootballtracker.api.content;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "content")
 public class Content {
 
     private Long id;
@@ -17,6 +15,7 @@ public class Content {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -25,6 +24,7 @@ public class Content {
         this.id = id;
     }
 
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -33,6 +33,7 @@ public class Content {
         this.content = content;
     }
 
+    @Column(name = "date")
     public Date getDate() {
         return date;
     }
