@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/subfootball_tracker
-    username: subfootball_tracker_user
-    password: password
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/subfootball_tracker}
+    username: ${DATABASE_USERNAME:subfootball_tracker_user}
+    password: ${DATABASE_PASSWORD:password}
 
   jpa:
     show-sql: true
