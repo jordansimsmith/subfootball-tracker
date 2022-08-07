@@ -36,7 +36,6 @@ public class EmailContentChangeNotifier implements ContentChangeNotifier {
         fromEmail.setEmail(emailProperties.getSenderAddress());
         mail.setFrom(fromEmail);
 
-        // TODO: pull from subscribers in config
         for (var subscriber : emailProperties.getSubscribers()) {
             var toEmail = new Email();
             toEmail.setName(subscriber.getName());
