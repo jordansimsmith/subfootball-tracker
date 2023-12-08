@@ -1,13 +1,12 @@
 package com.jordansimsmith.subfootballtracker.api;
 
 import com.jordansimsmith.subfootballtracker.api.content.ContentService;
+import jakarta.annotation.PostConstruct;
 import org.jobrunr.scheduling.JobScheduler;
 import org.jobrunr.scheduling.cron.Cron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class ApiApplication {

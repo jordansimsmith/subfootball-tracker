@@ -6,13 +6,12 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class EmailContentChangeNotifier implements ContentChangeNotifier {
@@ -60,7 +59,9 @@ public class EmailContentChangeNotifier implements ContentChangeNotifier {
         var response = client.api(request);
         var status = HttpStatus.valueOf(response.getStatusCode());
         if (!status.is2xxSuccessful()) {
-            logger.error("Failed to dispatch content change email with status code " + response.getStatusCode());
+            logger.error(
+                    "Failed to dispatch content change email with status code "
+                            + response.getStatusCode());
         }
     }
 }

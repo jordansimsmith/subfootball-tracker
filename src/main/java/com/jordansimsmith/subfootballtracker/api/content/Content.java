@@ -1,6 +1,6 @@
 package com.jordansimsmith.subfootballtracker.api.content;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity

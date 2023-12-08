@@ -1,12 +1,11 @@
 package com.jordansimsmith.subfootballtracker.api.content;
 
+import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class ContentScraperImpl implements ContentScraper {

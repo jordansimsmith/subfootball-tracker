@@ -19,9 +19,10 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: corretto
-          java-version: 18
+          java-version: 17
 
-      - run: gradle wrapper
+      - name: Run checks
+        run: ./gradlew check
 
       - name: Run tests
         run: ./gradlew test
