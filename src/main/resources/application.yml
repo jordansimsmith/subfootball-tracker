@@ -9,9 +9,6 @@ spring:
     hibernate:
       ddl-auto: none
 
-  liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yml
-
 org:
   jobrunr:
     background-job-server:
