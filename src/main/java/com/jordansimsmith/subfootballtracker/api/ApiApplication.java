@@ -1,29 +1,32 @@
 package com.jordansimsmith.subfootballtracker.api;
 
 import com.jordansimsmith.subfootballtracker.api.content.ContentService;
-import jakarta.annotation.PostConstruct;
+import org.jobrunr.configuration.JobRunr;
 import org.jobrunr.scheduling.JobScheduler;
 import org.jobrunr.scheduling.cron.Cron;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jobrunr.storage.InMemoryStorageProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ApiApplication {
-
-    private final JobScheduler jobScheduler;
-
-    @Autowired
-    public ApiApplication(JobScheduler jobScheduler) {
-        this.jobScheduler = jobScheduler;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
     }
 
-    @PostConstruct
-    public void scheduleRecurrently() {
-        jobScheduler.scheduleRecurrently(Cron.daily(), ContentService::checkForUpdates);
+    @Bean()
+    public JobScheduler scheduleRecurrently(ApplicationContext ctx) {
+        var scheduler =
+                JobRunr.configure()
+                        .useJobActivator(ctx::getBean)
+                        .useStorageProvider(new InMemoryStorageProvider())
+                        .useBackgroundJobServer()
+                        .initialize()
+                        .getJobScheduler();
+        scheduler.scheduleRecurrently(Cron.daily(), ContentService::checkForUpdates);
+        return scheduler;
     }
 }
