@@ -2,7 +2,7 @@ package com.jordansimsmith.subfootballtracker.api;
 
 import org.junit.jupiter.api.Test;
 
-class ApiApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {}
