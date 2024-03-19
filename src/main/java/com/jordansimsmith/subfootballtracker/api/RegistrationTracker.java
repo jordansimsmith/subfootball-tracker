@@ -45,13 +45,23 @@ public class RegistrationTracker extends LeaderSelectorListenerAdapter {
 
     @Override
     public void takeLeadership(CuratorFramework curator) throws Exception {
+        try {
+            doTakeLeadership(curator);
+        } catch (Exception e) {
+            logger.error("Failed to track the registration page", e);
+            Thread.sleep(TimeUnit.SECONDS.toMillis(30));
+            throw e;
+        }
+    }
+
+    public void doTakeLeadership(CuratorFramework curator) throws Exception {
         logger.info("RegistrationTracker running...");
 
         // check if it is time to run yet
         var now = Instant.now().getEpochSecond();
         var lastRun = getPathValue(curator, LAST_RUN_PATH);
         if (lastRun + RUN_INTERVAL_SECONDS > now) {
-            Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+            Thread.sleep(TimeUnit.SECONDS.toMillis(30));
             return;
         }
 
@@ -138,6 +148,7 @@ public class RegistrationTracker extends LeaderSelectorListenerAdapter {
                     "Failed to dispatch content change email with status code "
                             + response.getStatusCode());
         }
+        throw new IOException("Failed to dispatch email");
     }
 
     private void setPathValue(CuratorFramework curator, String path, long value) throws Exception {
